@@ -15,7 +15,7 @@ class _AppointmentViewState extends State<AppointmentView> {
         title: const Text('Appointment'),
       ),
       body: const Center(
-        child: Text('Appointments'),
+        child: Text('Appointment'),
       ),
     );
   }
