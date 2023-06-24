@@ -6,7 +6,6 @@ import 'package:barber_app/data/response/status.dart';
 import 'package:barber_app/models/dashboard/dashboardModel.dart';
 import 'package:barber_app/repository/dashboard_repository/dashboardRepository.dart';
 import 'package:barber_app/utils/utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
