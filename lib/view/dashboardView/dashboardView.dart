@@ -100,9 +100,9 @@ class _DashboardViewState extends State<DashboardView> {
                           child: Text('Timing',
                               style: TextStyle(
                                   fontFamily: 'playfair',
-                                  fontSize: 22,
-                                  color: AppColor.whiteColor,
-                                  fontWeight: FontWeight.bold)),
+                                  fontSize: 18,
+                                  color: AppColor.greyColor,
+                                  fontWeight: FontWeight.w600)),
                         ),
                         const SizedBox(
                           height: 15,
@@ -140,9 +140,9 @@ class _DashboardViewState extends State<DashboardView> {
                           child: Text('Gallery',
                               style: TextStyle(
                                   fontFamily: 'playfair',
-                                  fontSize: 22,
-                                  color: AppColor.whiteColor,
-                                  fontWeight: FontWeight.bold)),
+                                  fontSize: 18,
+                                  color: AppColor.greyColor,
+                                  fontWeight: FontWeight.w800)),
                         ),
                         const SizedBox(
                           height: 25,
@@ -173,7 +173,7 @@ class GalleryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180,
+      height: 140,
       width: double.infinity,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -182,7 +182,8 @@ class GalleryWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-                height: 100,
+                height: 140,
+                width: 225,
                 decoration: BoxDecoration(
                   color: AppColor.goldenColor,
                   borderRadius: BorderRadius.circular(10.0),
@@ -230,9 +231,9 @@ class timingWidget extends StatelessWidget {
             day,
             style: const TextStyle(
                 fontFamily: 'gordita',
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w800,
                 color: AppColor.whiteColor,
-                fontSize: 16),
+                fontSize: 14),
           ),
           const SizedBox(
             width: 90,
@@ -241,11 +242,11 @@ class timingWidget extends StatelessWidget {
             time,
             style: TextStyle(
                 fontFamily: 'gordita',
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.w400,
                 color: time == 'Closed'
                     ? AppColor.redColor
-                    : AppColor.darkgreyColor,
-                fontSize: 16),
+                    : AppColor.lightGoldenColor,
+                fontSize: 14),
           )
         ],
       ),
@@ -263,12 +264,12 @@ class barbergrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Constants.getHeight(context) * 0.36,
+      height: Constants.getHeight(context) * 0.34,
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 160,
-              childAspectRatio: 2 / 2.3,
+              childAspectRatio: 2 / 2.15,
               crossAxisSpacing: 15,
               mainAxisSpacing: 15),
           itemCount: 6,
@@ -286,7 +287,7 @@ class barbergrid extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
-                    top: 68,
+                    top: 65,
                     left: 0,
                     right: 0,
                     child: SizedBox(
@@ -298,14 +299,15 @@ class barbergrid extends StatelessWidget {
                                 : data.data![index].name!
                                     .split(' ')[0]
                                     .toString(),
+                            textAlign: TextAlign.left,
                             style: const TextStyle(
                                 fontFamily: 'gordita',
-                                fontWeight: FontWeight.w800,
-                                color: AppColor.greyColor,
+                                fontWeight: FontWeight.w900,
+                                color: AppColor.whiteColor,
                                 fontSize: 14),
                           ),
                           const SizedBox(
-                            height: 6,
+                            height: 4,
                           ),
                           Text(
                             index == data.data!.length
@@ -313,9 +315,9 @@ class barbergrid extends StatelessWidget {
                                 : data.data![index].city!.toString(),
                             style: const TextStyle(
                                 fontFamily: 'gordita',
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w400,
                                 color: AppColor.greyColor,
-                                fontSize: 12),
+                                fontSize: 14),
                           )
                         ],
                       ),
@@ -385,12 +387,12 @@ class servicesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Constants.getHeight(context) * 0.45,
+      height: Constants.getHeight(context) * 0.4,
       child: GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
-              childAspectRatio: 3 / 1.8,
+              childAspectRatio: 3 / 1.5,
               crossAxisSpacing: 15,
               mainAxisSpacing: 15),
           itemCount: 6,
@@ -410,6 +412,8 @@ class servicesGrid extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
+                          height: 40,
+                          width: 40,
                           decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               color: AppColor.primaryColor),
@@ -448,7 +452,7 @@ class servicesGrid extends StatelessWidget {
                                       fontSize: 14),
                                 ),
                                 SizedBox(
-                                  width: 4,
+                                  width: 6,
                                 ),
                                 Icon(
                                   Icons.timer_outlined,
@@ -456,7 +460,7 @@ class servicesGrid extends StatelessWidget {
                                   size: 14,
                                 ),
                                 SizedBox(
-                                  width: 3,
+                                  width: 5,
                                 ),
                                 Text(
                                   '30 m',
@@ -478,9 +482,9 @@ class servicesGrid extends StatelessWidget {
                             : data.data![index].name!.split(' ')[0].toString(),
                         style: const TextStyle(
                             fontFamily: 'gordita',
-                            fontSize: 20,
+                            fontSize: 15,
                             color: AppColor.whiteColor,
-                            fontWeight: FontWeight.bold)),
+                            fontWeight: FontWeight.w500)),
                   ],
                 ),
               ),
@@ -506,15 +510,18 @@ class expandGrid extends StatelessWidget {
         Text(title,
             style: const TextStyle(
                 fontFamily: 'playfair',
-                fontSize: 22,
-                color: AppColor.whiteColor,
-                fontWeight: FontWeight.bold)),
+                fontSize: 18,
+                color: AppColor.greyColor,
+                fontWeight: FontWeight.w600)),
         TextButton(
           onPressed: () {},
           child: const Text(
             'View All',
             style: TextStyle(
-                fontFamily: 'gordita', fontSize: 18, color: AppColor.greyColor),
+                fontWeight: FontWeight.w500,
+                fontFamily: 'gordita',
+                fontSize: 12,
+                color: AppColor.greyColor),
           ),
         ),
       ],
@@ -538,14 +545,15 @@ class DataRow extends StatelessWidget {
               Text('20',
                   style: TextStyle(
                       fontFamily: 'playfair',
-                      fontSize: 20,
+                      fontSize: 18,
                       color: AppColor.whiteColor,
-                      fontWeight: FontWeight.bold)),
+                      fontWeight: FontWeight.w600)),
               Text(
                 'Team Members',
                 style: TextStyle(
                     fontFamily: 'gordita',
-                    fontSize: 15,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                     color: AppColor.greyColor),
               ),
             ],
@@ -564,14 +572,15 @@ class DataRow extends StatelessWidget {
               Text('500',
                   style: TextStyle(
                       fontFamily: 'playfair',
-                      fontSize: 22,
+                      fontSize: 18,
                       color: AppColor.whiteColor,
-                      fontWeight: FontWeight.bold)),
+                      fontWeight: FontWeight.w600)),
               Text(
                 'Happy Clients',
                 style: TextStyle(
                     fontFamily: 'gordita',
-                    fontSize: 15,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                     color: AppColor.greyColor),
               ),
             ],
@@ -590,14 +599,15 @@ class DataRow extends StatelessWidget {
               Text('5+',
                   style: TextStyle(
                       fontFamily: 'playfair',
-                      fontSize: 22,
+                      fontSize: 18,
                       color: AppColor.whiteColor,
-                      fontWeight: FontWeight.bold)),
+                      fontWeight: FontWeight.w600)),
               Text(
                 'Years Experience',
                 style: TextStyle(
                     fontFamily: 'gordita',
-                    fontSize: 14,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                     color: AppColor.greyColor),
               ),
             ],
@@ -621,8 +631,8 @@ class AddressWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          height: 110,
-          width: 108,
+          height: 106,
+          width: 104,
           decoration: BoxDecoration(
               color: AppColor.secondaryColor,
               borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -652,14 +662,18 @@ class AddressWidget extends StatelessWidget {
                   const Icon(
                     Icons.location_on_outlined,
                     color: AppColor.greyColor,
+                    size: 16,
+                  ),
+                  const SizedBox(
+                    width: 5,
                   ),
                   Text(
                     address,
                     style: const TextStyle(
                         fontFamily: 'gordita',
                         color: AppColor.greyColor,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 18),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14),
                   ),
                 ],
               ),
@@ -668,14 +682,18 @@ class AddressWidget extends StatelessWidget {
                   Icon(
                     Icons.call_outlined,
                     color: AppColor.greyColor,
+                    size: 16,
+                  ),
+                  SizedBox(
+                    width: 5,
                   ),
                   Text(
                     '+44123456789',
                     style: TextStyle(
                         fontFamily: 'gordita',
                         color: AppColor.greyColor,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 18),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14),
                   ),
                 ],
               )
@@ -698,17 +716,19 @@ class LoginRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
+            height: 48,
+            width: 48,
             decoration: const BoxDecoration(
                 shape: BoxShape.circle, color: AppColor.secondaryColor),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(3.0),
               child: Center(
                   child: IconButton(
                       onPressed: () {},
                       icon: const Icon(
                         Icons.login,
                         color: AppColor.goldenColor,
-                        size: 33,
+                        size: 22,
                       ))),
             )),
         const SizedBox(

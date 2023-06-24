@@ -38,8 +38,8 @@ class _HomeViewState extends State<HomeView> {
           child: InkWell(
             onTap: () {},
             child: const SizedBox(
-              width: 65,
-              height: 65,
+              width: 56,
+              height: 56,
               child: Icon(
                 Icons.add_rounded,
                 color: AppColor.whiteColor,
