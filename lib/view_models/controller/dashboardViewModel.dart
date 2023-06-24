@@ -1,5 +1,7 @@
 // ignore_for_file: unused_field, no_leading_underscores_for_local_identifiers
 
+import 'dart:io';
+
 import 'package:barber_app/data/response/status.dart';
 import 'package:barber_app/models/dashboard/dashboardModel.dart';
 import 'package:barber_app/repository/dashboard_repository/dashboardRepository.dart';
@@ -23,16 +25,16 @@ class DashboardController extends GetxController {
     _api.dashboardApi(headers).then((value) {
       setRxRequestStatus(Status.COMPLETED);
       setDashboardData(value);
-      if (defaultTargetPlatform == TargetPlatform.android) {
+      if (Platform.isAndroid) {
         Utils.toastMessage('Data Loaded!');
-      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      } else if (Platform.isIOS) {
         Utils.snackBar('Success', 'Data Loaded!');
       }
     }).onError((error, stackTrace) {
       setRxRequestStatus(Status.ERROR);
-      if (defaultTargetPlatform == TargetPlatform.android) {
+      if (Platform.isAndroid) {
         Utils.toastMessage(error.toString());
-      } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+      } else if (Platform.isIOS) {
         Utils.snackBar('Error', error.toString());
       }
     });
