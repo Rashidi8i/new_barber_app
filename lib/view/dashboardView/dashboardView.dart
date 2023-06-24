@@ -643,7 +643,7 @@ class AddressWidget extends StatelessWidget {
           width: 15,
         ),
         SizedBox(
-          height: 130,
+          height: 104,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -688,7 +688,7 @@ class AddressWidget extends StatelessWidget {
                     width: 5,
                   ),
                   Text(
-                    '+44123456789',
+                    '+44258348928904',
                     style: TextStyle(
                         fontFamily: 'gordita',
                         color: AppColor.greyColor,
