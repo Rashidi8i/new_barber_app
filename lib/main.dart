@@ -1,4 +1,4 @@
-import 'package:barber_app/view/splashView.dart';
+import 'package:barber_app/view/homeView/homeView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashView(),
+      home: HomeView(),
     );
   }
 }
