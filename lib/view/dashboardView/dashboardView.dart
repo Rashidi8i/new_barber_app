@@ -26,8 +26,8 @@ class _DashboardViewState extends State<DashboardView> {
     'assets/icons/scisorcut.png',
     'assets/icons/wetshave.png',
   ];
-  String imgUrl =
-      'https://images.squarespace-cdn.com/content/v1/5b724588cc8fedf1ef462608/1644437189515-DE0D6DMVHG72Q76TGF4Q/Photo+Feb+20%2C+5+03+14+AM.jpg?format=2500w';
+  // String imgUrl =
+  //     'https://images.squarespace-cdn.com/content/v1/5b724588cc8fedf1ef462608/1644437189515-DE0D6DMVHG72Q76TGF4Q/Photo+Feb+20%2C+5+03+14+AM.jpg?format=2500w';
   @override
   void initState() {
     super.initState();
@@ -170,7 +170,6 @@ class _DashboardViewState extends State<DashboardView> {
 class GalleryWidget extends StatelessWidget {
   final dashboardModel data;
   const GalleryWidget({super.key, required this.data});
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
