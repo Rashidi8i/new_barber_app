@@ -21,7 +21,7 @@ class _InterNetExceptionWidgetState extends State<InterNetExceptionWidget> {
         children: [
           const Icon(
             Icons.cloud_off,
-            color: AppColor.goldenColor,
+            color: AppColor.primaryColor,
             size: 50,
           ),
           const Padding(
@@ -30,7 +30,7 @@ class _InterNetExceptionWidgetState extends State<InterNetExceptionWidget> {
                 child: Text(
               'We are unable to show results.\nPlease check your data\nconenction.',
               textAlign: TextAlign.center,
-              style: TextStyle(color: AppColor.redColor),
+              style: TextStyle(color: AppColor.dangerColor),
             )),
           ),
           const SizedBox(
@@ -47,7 +47,7 @@ class _InterNetExceptionWidgetState extends State<InterNetExceptionWidget> {
               child: const Center(
                   child: Text(
                 'Retry',
-                style: TextStyle(color: AppColor.goldenColor),
+                style: TextStyle(color: AppColor.primaryColor),
               )),
             ),
           )

@@ -7,6 +7,7 @@ import 'package:barber_app/res/components/internet_exceptions_widget.dart';
 import 'package:barber_app/res/constants/constants.dart';
 import 'package:barber_app/view_models/controller/dashboardViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class DashboardView extends StatefulWidget {
@@ -26,8 +27,6 @@ class _DashboardViewState extends State<DashboardView> {
     'assets/icons/scisorcut.png',
     'assets/icons/wetshave.png',
   ];
-  // String imgUrl =
-  //     'https://images.squarespace-cdn.com/content/v1/5b724588cc8fedf1ef462608/1644437189515-DE0D6DMVHG72Q76TGF4Q/Photo+Feb+20%2C+5+03+14+AM.jpg?format=2500w';
   @override
   void initState() {
     super.initState();
@@ -38,13 +37,13 @@ class _DashboardViewState extends State<DashboardView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: AppColor.primaryColor,
+        backgroundColor: AppColor.secondaryColor,
         body: Obx(() {
           switch (dashboardController.rxRequestStatus.value) {
             case Status.LOADING:
               return const Center(
                   child: CircularProgressIndicator(
-                color: AppColor.goldenColor,
+                color: AppColor.primaryColor,
               ));
             case Status.ERROR:
               return Center(child: InterNetExceptionWidget(
@@ -64,48 +63,54 @@ class _DashboardViewState extends State<DashboardView> {
                       children: [
                         const LoginRow(),
                         const SizedBox(
-                          height: 20,
+                          height: 18,
                         ),
                         AddressWidget(
                             address:
                                 '${dashboardController.dashboardData.value.data![1].id} St, ${dashboardController.dashboardData.value.data![1].city}'),
                         const SizedBox(
-                          height: 20,
+                          height: 18,
                         ),
                         const Divider(
-                          color: AppColor.darkgreyColor,
+                          color: AppColor.dark2Color,
                         ),
                         const DataRow(),
                         const Divider(
-                          color: AppColor.darkgreyColor,
+                          color: AppColor.dark2Color,
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 16,
                         ),
                         const expandGrid(title: 'Our Services'),
                         const SizedBox(
-                          height: 15,
+                          height: 13,
                         ),
                         servicesGrid(
                             data: dashboardController.dashboardData.value,
                             icons: servicesIcons),
+                        const SizedBox(
+                          height: 50,
+                        ),
                         const expandGrid(title: 'Our Barbers'),
                         const SizedBox(
-                          height: 15,
+                          height: 13,
                         ),
                         barbergrid(
                             data: dashboardController.dashboardData.value),
+                        const SizedBox(
+                          height: 50,
+                        ),
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text('Timing',
                               style: TextStyle(
                                   fontFamily: 'playfair',
                                   fontSize: 18,
-                                  color: AppColor.greyColor,
+                                  color: AppColor.dark4Color,
                                   fontWeight: FontWeight.w600)),
                         ),
                         const SizedBox(
-                          height: 15,
+                          height: 20,
                         ),
                         const timingWidget(day: 'MON', time: '9am - 10pm'),
                         const SizedBox(
@@ -133,7 +138,7 @@ class _DashboardViewState extends State<DashboardView> {
                         ),
                         const timingWidget(day: 'SUN', time: '9am - 10pm'),
                         const SizedBox(
-                          height: 35,
+                          height: 50,
                         ),
                         const Align(
                           alignment: Alignment.centerLeft,
@@ -141,7 +146,7 @@ class _DashboardViewState extends State<DashboardView> {
                               style: TextStyle(
                                   fontFamily: 'playfair',
                                   fontSize: 18,
-                                  color: AppColor.greyColor,
+                                  color: AppColor.dark4Color,
                                   fontWeight: FontWeight.w800)),
                         ),
                         const SizedBox(
@@ -173,23 +178,19 @@ class GalleryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 140,
+      height: 150,
       width: double.infinity,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: data.data!.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                height: 140,
-                width: 225,
-                decoration: BoxDecoration(
-                  color: AppColor.goldenColor,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
+              padding: const EdgeInsets.all(5.0),
+              child: SizedBox(
+                height: 140.h,
+                width: 225.w,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(4.0),
                   child: Image.network(
                     data.data![index].allImages!.first,
                     fit: BoxFit.cover,
@@ -215,7 +216,7 @@ class timingWidget extends StatelessWidget {
     return Container(
       height: 50,
       decoration: BoxDecoration(
-          color: AppColor.secondaryColor,
+          color: AppColor.cardBGColor,
           borderRadius: BorderRadius.only(
               bottomLeft:
                   day == 'SUN' ? const Radius.circular(12) : Radius.zero,
@@ -231,7 +232,7 @@ class timingWidget extends StatelessWidget {
             day,
             style: const TextStyle(
                 fontFamily: 'gordita',
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w500,
                 color: AppColor.whiteColor,
                 fontSize: 14),
           ),
@@ -244,8 +245,8 @@ class timingWidget extends StatelessWidget {
                 fontFamily: 'gordita',
                 fontWeight: FontWeight.w400,
                 color: time == 'Closed'
-                    ? AppColor.redColor
-                    : AppColor.lightGoldenColor,
+                    ? AppColor.dangerColor
+                    : AppColor.successColor,
                 fontSize: 14),
           )
         ],
@@ -263,115 +264,110 @@ class barbergrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: Constants.getHeight(context) * 0.34,
-      child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 160,
-              childAspectRatio: 2 / 2.15,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15),
-          itemCount: 6,
-          itemBuilder: (BuildContext ctx, index) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: AppColor.secondaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(70.0),
-                  topRight: Radius.circular(7.0),
-                  bottomLeft: Radius.circular(7.0),
-                  bottomRight: Radius.circular(7.0),
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 160,
+            childAspectRatio: 2 / 2.15,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15),
+        itemCount: 6,
+        itemBuilder: (BuildContext ctx, index) {
+          return Container(
+            decoration: const BoxDecoration(
+              color: AppColor.cardBGColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(70.0),
+                topRight: Radius.circular(7.0),
+                bottomLeft: Radius.circular(7.0),
+                bottomRight: Radius.circular(7.0),
+              ),
+            ),
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 10,
+                  child: SizedBox(
+                    child: Column(
+                      children: [
+                        Text(
+                          index == data.data!.length
+                              ? data.data![2].name!.split(' ')[0].toString()
+                              : data.data![index].name!
+                                  .split(' ')[0]
+                                  .toString(),
+                          textAlign: TextAlign.left,
+                          style: const TextStyle(
+                              fontFamily: 'gordita',
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.whiteColor,
+                              fontSize: 14),
+                        ),
+                        Text(
+                          index == data.data!.length
+                              ? data.data![2].city!.toString()
+                              : data.data![index].city!.toString(),
+                          style: const TextStyle(
+                              fontFamily: 'gordita',
+                              fontWeight: FontWeight.w400,
+                              color: AppColor.dark3Color,
+                              fontSize: 14),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 65,
-                    left: 0,
-                    right: 0,
-                    child: SizedBox(
-                      child: Column(
-                        children: [
-                          Text(
-                            index == data.data!.length
-                                ? data.data![2].name!.split(' ')[0].toString()
-                                : data.data![index].name!
-                                    .split(' ')[0]
-                                    .toString(),
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                                fontFamily: 'gordita',
-                                fontWeight: FontWeight.w900,
-                                color: AppColor.whiteColor,
-                                fontSize: 14),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            index == data.data!.length
-                                ? data.data![2].city!.toString()
-                                : data.data![index].city!.toString(),
-                            style: const TextStyle(
-                                fontFamily: 'gordita',
-                                fontWeight: FontWeight.w400,
-                                color: AppColor.greyColor,
-                                fontSize: 14),
-                          )
-                        ],
-                      ),
+                const Positioned(
+                  top: 20,
+                  right: 5,
+                  child: SizedBox(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: AppColor.primaryColor,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          '4.0',
+                          style: TextStyle(
+                              fontFamily: 'gordita',
+                              fontWeight: FontWeight.normal,
+                              color: AppColor.dark3Color,
+                              fontSize: 13),
+                        )
+                      ],
                     ),
                   ),
-                  const Positioned(
-                    top: 20,
-                    right: 5,
-                    child: SizedBox(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.star,
-                            color: AppColor.goldenColor,
-                            size: 20,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            '4.0',
-                            style: TextStyle(
-                                fontFamily: 'gordita',
-                                fontWeight: FontWeight.normal,
-                                color: AppColor.greyColor,
-                                fontSize: 13),
-                          )
-                        ],
-                      ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: AppColor.secondaryColor,
+                      shape: BoxShape.circle,
                     ),
+                    child: const Padding(
+                        padding: EdgeInsets.all(6.0),
+                        child: CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/icons/mandp2.jpg'),
+                        )),
                   ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    child: Container(
-                      width: 56,
-                      height: 56,
-                      decoration: const BoxDecoration(
-                        color: AppColor.primaryColor,
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/icons/mandp2.jpg'),
-                          )),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-    );
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
 
@@ -386,111 +382,105 @@ class servicesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: Constants.getHeight(context) * 0.4,
-      child: GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 200,
-              childAspectRatio: 3 / 1.5,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15),
-          itemCount: 6,
-          itemBuilder: (BuildContext ctx, index) {
-            return Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  color: AppColor.secondaryColor,
-                  borderRadius: BorderRadius.circular(9)),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColor.primaryColor),
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Image.asset(
-                              icons[index],
-                              height: 40,
-                            ),
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 200,
+            childAspectRatio: 3 / 1.4,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 15),
+        itemCount: 6,
+        itemBuilder: (BuildContext ctx, index) {
+          return Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: AppColor.cardBGColor,
+                borderRadius: BorderRadius.circular(8)),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: 40,
+                        width: 40,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColor.secondaryColor),
+                        child: Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: Image.asset(
+                            icons[index],
+                            height: 24,
                           ),
                         ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(34, 255, 214, 64),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(
-                                  7.0), // Rounded top-left corner
-                              topRight: Radius.zero, // Rounded top-right corner
-                              bottomLeft: Radius.circular(
-                                  7.0), // Sharp bottom-left corner
-                              bottomRight:
-                                  Radius.zero, // Sharp bottom-right corner
-                            ),
+                      ),
+                      Container(
+                        width: 88,
+                        height: 24,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 48, 44, 38),
+                          borderRadius: BorderRadius.only(
+                            topLeft:
+                                Radius.circular(8.0), // Rounded top-left corner
+                            topRight: Radius.zero, // Rounded top-right corner
+                            bottomLeft: Radius.circular(
+                                8.0), // Sharp bottom-left corner
+                            bottomRight:
+                                Radius.zero, // Sharp bottom-right corner
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(3.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '\$10',
-                                  style: TextStyle(
-                                      fontFamily: 'gordita',
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColor.goldenColor,
-                                      fontSize: 14),
-                                ),
-                                SizedBox(
-                                  width: 6,
-                                ),
-                                Icon(
-                                  Icons.timer_outlined,
-                                  color: AppColor.greyColor,
-                                  size: 14,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  '30 m',
-                                  style: TextStyle(
-                                      fontFamily: 'gordita',
-                                      fontWeight: FontWeight.normal,
-                                      color: AppColor.greyColor,
-                                      fontSize: 14),
-                                ),
-                              ],
-                            ),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(3.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                '\$10',
+                                style: TextStyle(
+                                    fontFamily: 'gordita',
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.primaryColor,
+                                    fontSize: 14),
+                              ),
+                              Icon(
+                                Icons.timer_outlined,
+                                color: AppColor.dark3Color,
+                                size: 12,
+                              ),
+                              Text(
+                                '30 m',
+                                style: TextStyle(
+                                    fontFamily: 'gordita',
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.dark3Color,
+                                    fontSize: 10),
+                              ),
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    Text(
-                        index == data.data!.length
-                            ? data.data![2].name!.split(' ')[0].toString()
-                            : data.data![index].name!.split(' ')[0].toString(),
-                        style: const TextStyle(
-                            fontFamily: 'gordita',
-                            fontSize: 15,
-                            color: AppColor.whiteColor,
-                            fontWeight: FontWeight.w500)),
-                  ],
-                ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Text(
+                      index == data.data!.length
+                          ? data.data![2].name!.split(' ')[0].toString()
+                          : data.data![index].name!.split(' ')[0].toString(),
+                      style: const TextStyle(
+                          fontFamily: 'gordita',
+                          fontSize: 14,
+                          color: AppColor.whiteColor,
+                          fontWeight: FontWeight.w500)),
+                ],
               ),
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 }
 
@@ -511,7 +501,7 @@ class expandGrid extends StatelessWidget {
             style: const TextStyle(
                 fontFamily: 'playfair',
                 fontSize: 18,
-                color: AppColor.greyColor,
+                color: AppColor.dark4Color,
                 fontWeight: FontWeight.w600)),
         TextButton(
           onPressed: () {},
@@ -521,7 +511,7 @@ class expandGrid extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 fontFamily: 'gordita',
                 fontSize: 12,
-                color: AppColor.greyColor),
+                color: AppColor.dark4Color),
           ),
         ),
       ],
@@ -536,84 +526,88 @@ class DataRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const IntrinsicHeight(
-        child: Row(
-      children: [
-        Expanded(
-          child: Column(
-            children: [
-              Text('20',
+    return IntrinsicHeight(
+        child: SizedBox(
+      height: 58,
+      width: 344.w,
+      child: const Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                Text('20',
+                    style: TextStyle(
+                        fontFamily: 'playfair',
+                        fontSize: 18,
+                        color: AppColor.whiteColor,
+                        fontWeight: FontWeight.w600)),
+                Text(
+                  'Team Members',
                   style: TextStyle(
-                      fontFamily: 'playfair',
-                      fontSize: 18,
-                      color: AppColor.whiteColor,
-                      fontWeight: FontWeight.w600)),
-              Text(
-                'Team Members',
-                style: TextStyle(
-                    fontFamily: 'gordita',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.greyColor),
-              ),
-            ],
+                      fontFamily: 'gordita',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.dark3Color),
+                ),
+              ],
+            ),
           ),
-        ),
-        VerticalDivider(
-          color: AppColor.darkgreyColor, //color of divider
-          width: 5, //width space of divider
-          thickness: 1, //thickness of divier line
-          indent: 5, //Spacing at the top of divider.
-          endIndent: 5, //Spacing at the bottom of divider.
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Text('500',
+          VerticalDivider(
+            color: AppColor.dark2Color, //color of divider
+            width: 5, //width space of divider
+            thickness: 1, //thickness of divier line
+            indent: 5, //Spacing at the top of divider.
+            endIndent: 5, //Spacing at the bottom of divider.
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text('500',
+                    style: TextStyle(
+                        fontFamily: 'playfair',
+                        fontSize: 18,
+                        color: AppColor.whiteColor,
+                        fontWeight: FontWeight.w600)),
+                Text(
+                  'Happy Clients',
                   style: TextStyle(
-                      fontFamily: 'playfair',
-                      fontSize: 18,
-                      color: AppColor.whiteColor,
-                      fontWeight: FontWeight.w600)),
-              Text(
-                'Happy Clients',
-                style: TextStyle(
-                    fontFamily: 'gordita',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.greyColor),
-              ),
-            ],
+                      fontFamily: 'gordita',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.dark3Color),
+                ),
+              ],
+            ),
           ),
-        ),
-        VerticalDivider(
-          color: AppColor.darkgreyColor, //color of divider
-          width: 5, //width space of divider
-          thickness: 1, //thickness of divier line
-          indent: 5, //Spacing at the top of divider.
-          endIndent: 5, //Spacing at the bottom of divider.
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Text('5+',
+          VerticalDivider(
+            color: AppColor.dark2Color, //color of divider
+            width: 5, //width space of divider
+            thickness: 1, //thickness of divier line
+            indent: 5, //Spacing at the top of divider.
+            endIndent: 5, //Spacing at the bottom of divider.
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text('5+',
+                    style: TextStyle(
+                        fontFamily: 'playfair',
+                        fontSize: 18,
+                        color: AppColor.whiteColor,
+                        fontWeight: FontWeight.w600)),
+                Text(
+                  'Years Experience',
                   style: TextStyle(
-                      fontFamily: 'playfair',
-                      fontSize: 18,
-                      color: AppColor.whiteColor,
-                      fontWeight: FontWeight.w600)),
-              Text(
-                'Years Experience',
-                style: TextStyle(
-                    fontFamily: 'gordita',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.greyColor),
-              ),
-            ],
+                      fontFamily: 'gordita',
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.dark3Color),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     ));
   }
 }
@@ -631,19 +625,20 @@ class AddressWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          height: 106,
-          width: 104,
+          height: 104,
+          width: 106,
           decoration: BoxDecoration(
-              color: AppColor.secondaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
-              border: Border.all(color: AppColor.darkgreyColor, width: 1)),
+              color: AppColor.cardBGColor,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              border: Border.all(color: AppColor.dark2Color, width: 1)),
           child: Image.asset('assets/icons/Frameappicon.png'),
         ),
-        const SizedBox(
-          width: 15,
+        SizedBox(
+          width: 15.w,
         ),
         SizedBox(
-          height: 104,
+          height: 99,
+          width: 184.w,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -661,7 +656,7 @@ class AddressWidget extends StatelessWidget {
                 children: [
                   const Icon(
                     Icons.location_on_outlined,
-                    color: AppColor.greyColor,
+                    color: AppColor.dark3Color,
                     size: 16,
                   ),
                   const SizedBox(
@@ -671,7 +666,7 @@ class AddressWidget extends StatelessWidget {
                     address,
                     style: const TextStyle(
                         fontFamily: 'gordita',
-                        color: AppColor.greyColor,
+                        color: AppColor.dark3Color,
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
                   ),
@@ -681,7 +676,7 @@ class AddressWidget extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.call_outlined,
-                    color: AppColor.greyColor,
+                    color: AppColor.dark3Color,
                     size: 16,
                   ),
                   SizedBox(
@@ -691,7 +686,7 @@ class AddressWidget extends StatelessWidget {
                     '+44258348928904',
                     style: TextStyle(
                         fontFamily: 'gordita',
-                        color: AppColor.greyColor,
+                        color: AppColor.dark3Color,
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
                   ),
@@ -719,18 +714,14 @@ class LoginRow extends StatelessWidget {
             height: 48,
             width: 48,
             decoration: const BoxDecoration(
-                shape: BoxShape.circle, color: AppColor.secondaryColor),
+                shape: BoxShape.circle, color: AppColor.cardBGColor),
             child: Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Center(
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.login,
-                        color: AppColor.goldenColor,
-                        size: 22,
-                      ))),
-            )),
+                padding: const EdgeInsets.all(3.0),
+                child: Image.asset(
+                  'assets/icons/login.png',
+                  height: 16,
+                  width: 16,
+                ))),
         const SizedBox(
           width: 15,
         ),

@@ -23,7 +23,7 @@ class _GeneralExceptionWidgetState extends State<GeneralExceptionWidget> {
           ),
           const Icon(
             Icons.cloud_off,
-            color: AppColor.goldenColor,
+            color: AppColor.primaryColor,
             size: 50,
           ),
           const Padding(

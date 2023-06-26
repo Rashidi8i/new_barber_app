@@ -4,8 +4,8 @@ import 'package:barber_app/res/colors/app_color.dart';
 class RoundButton extends StatelessWidget {
   const RoundButton(
       {Key? key,
-      this.buttonColor = AppColor.goldenColor,
-      this.textColor = AppColor.primaryColor,
+      this.buttonColor = AppColor.primaryColor,
+      this.textColor = AppColor.secondaryColor,
       required this.title,
       required this.onPress,
       this.width = 60,
@@ -36,7 +36,7 @@ class RoundButton extends StatelessWidget {
                 child: Text(
                   title,
                   style: const TextStyle(
-                      color: AppColor.goldenTextColor, fontSize: 20),
+                      color: AppColor.primaryColor, fontSize: 20),
                 ),
               ),
       ),

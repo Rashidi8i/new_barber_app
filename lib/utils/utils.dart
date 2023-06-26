@@ -8,8 +8,8 @@ class Utils {
   static toastMessage(String message) {
     Fluttertoast.showToast(
       msg: message,
-      backgroundColor: AppColor.primaryColor,
-      textColor: AppColor.goldenColor,
+      backgroundColor: AppColor.secondaryColor,
+      textColor: AppColor.primaryColor,
       gravity: ToastGravity.BOTTOM,
       toastLength: Toast.LENGTH_LONG,
     );

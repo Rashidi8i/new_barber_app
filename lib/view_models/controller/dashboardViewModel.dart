@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
   final _api = DashboardRepository();
+  RxBool firstVisit = false.obs;
   final rxRequestStatus = Status.LOADING.obs;
   final dashboardData = dashboardModel().obs;
 
@@ -17,6 +18,7 @@ class DashboardController extends GetxController {
   void setDashboardData(dashboardModel _value) => dashboardData.value = _value;
 
   void getDashboardData() {
+    firstVisit.value = true;
     Map<String, String> headers = {
       'api-key': 'd6dcc1bf-1189-4713-acc4-bf1da722475d'
     };
@@ -24,10 +26,12 @@ class DashboardController extends GetxController {
     _api.dashboardApi(headers).then((value) {
       setRxRequestStatus(Status.COMPLETED);
       setDashboardData(value);
-      if (Platform.isAndroid) {
-        Utils.toastMessage('Data Loaded!');
-      } else if (Platform.isIOS) {
-        Utils.snackBar('Success', 'Data Loaded!');
+      if (!firstVisit.value) {
+        if (Platform.isAndroid) {
+          Utils.toastMessage('Data Loaded!');
+        } else if (Platform.isIOS) {
+          Utils.snackBar('Success', 'Data Loaded!');
+        }
       }
     }).onError((error, stackTrace) {
       setRxRequestStatus(Status.ERROR);
