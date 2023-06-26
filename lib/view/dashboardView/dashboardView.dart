@@ -31,6 +31,7 @@ class _DashboardViewState extends State<DashboardView> {
   void initState() {
     super.initState();
     dashboardController.getDashboardData();
+    dashboardController.firstVisit.value = false;
   }
 
   @override

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:barber_app/res/colors/app_color.dart';
 import 'package:barber_app/view/homeView/homeView.dart';
+import 'package:barber_app/view_models/controller/splashViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,14 +15,23 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final splashController = Get.put(SplashController());
   @override
   void initState() {
     super.initState();
-    Timer(
-        const Duration(seconds: 3600),
-        () => Get.off(() => HomeView(),
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      splashController.addVaue();
+      if (splashController.value.value > 3) {
+        Get.off(() => HomeView(),
             transition: Transition.rightToLeft,
-            duration: const Duration(milliseconds: 450)));
+            duration: const Duration(milliseconds: 450));
+      }
+    });
+    // Timer(
+    //     const Duration(seconds: 3600),
+    //     () => Get.off(() => HomeView(),
+    //         transition: Transition.rightToLeft,
+    //         duration: const Duration(milliseconds: 450)));
   }
 
   @override
@@ -41,15 +51,16 @@ class _SplashViewState extends State<SplashView> {
               ),
             ),
             Positioned(
-              bottom: 100,
-              left: 0,
-              right: 0,
-              child: CustomProgressBar(
-                totalValue: 80,
-                value: 50,
-                width: 113.w,
-              ),
-            )
+                bottom: 100,
+                left: 0,
+                right: 0,
+                child: Obx(() {
+                  return CustomProgressBar(
+                    totalValue: splashController.totalvalue.value,
+                    value: splashController.value.value,
+                    width: 113.w,
+                  );
+                }))
           ],
         ),
       ),
@@ -81,8 +92,8 @@ class CustomProgressBar extends StatelessWidget {
           ),
           AnimatedContainer(
               height: 1,
-              width: width - (width * ratio),
-              duration: Duration(milliseconds: totalValue),
+              width: 0 + (width * ratio),
+              duration: const Duration(milliseconds: 1000),
               decoration: BoxDecoration(
                   color: AppColor.primaryColor,
                   borderRadius: BorderRadius.circular(5))),
