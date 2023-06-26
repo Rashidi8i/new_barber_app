@@ -51,7 +51,7 @@ class _SplashViewState extends State<SplashView> {
               ),
             ),
             Positioned(
-                bottom: 100,
+                bottom: 80.h,
                 left: 0,
                 right: 0,
                 child: Obx(() {

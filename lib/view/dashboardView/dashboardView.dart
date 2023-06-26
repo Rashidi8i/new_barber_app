@@ -188,8 +188,8 @@ class GalleryWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(5.0),
               child: SizedBox(
-                height: 140.h,
-                width: 225.w,
+                height: 140,
+                width: 225,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(4.0),
                   child: Image.network(

@@ -52,6 +52,8 @@ class _HomeViewState extends State<HomeView> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
         color: AppColor.cardBGColor,
         child: SizedBox(
           height: 84.h,
