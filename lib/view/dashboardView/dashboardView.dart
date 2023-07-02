@@ -268,11 +268,11 @@ class barbergrid extends StatelessWidget {
     return GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 160,
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 150.w,
             childAspectRatio: 2 / 2.15,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 15),
+            crossAxisSpacing: 15.w,
+            mainAxisSpacing: 15.h),
         itemCount: 6,
         itemBuilder: (BuildContext ctx, index) {
           return Container(
@@ -351,8 +351,8 @@ class barbergrid extends StatelessWidget {
                   top: 0,
                   left: 0,
                   child: Container(
-                    width: 50,
-                    height: 50,
+                    width: 50.w,
+                    height: 50.h,
                     decoration: const BoxDecoration(
                       color: AppColor.secondaryColor,
                       shape: BoxShape.circle,
