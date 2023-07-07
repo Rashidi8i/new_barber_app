@@ -27,6 +27,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.secondaryColor,
       body: Obx(() {
         return PageStorage(
           bucket: bucket,
